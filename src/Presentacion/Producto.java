@@ -255,12 +255,13 @@ public class Producto extends javax.swing.JInternalFrame {
                     .addComponent(Label4)
                     .addComponent(TxtProovedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Label2)
-                    .addComponent(TxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(TxtPiezas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Label5)))
+                        .addComponent(Label5))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(Label2)
+                        .addComponent(TxtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TxtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -443,13 +444,19 @@ public class Producto extends javax.swing.JInternalFrame {
       
       EncapsulamientoProducto producto = new EncapsulamientoProducto();
       
+      
+      int CodigoBarrasInt = Integer.parseInt( ProductoTabla.getValueAt(ProductoTabla.getSelectedRow(), 1).toString() );
+      
+      int PiezasInt = Integer.parseInt( ProductoTabla.getValueAt(ProductoTabla.getSelectedRow(), 5).toString() );
+      
+      
       // Obtenemos los datos de los txt
         producto.ID((int)ProductoTabla.getValueAt(ProductoTabla.getSelectedRow(), 0));
-        producto.CodigoBarras ((int)ProductoTabla.getValueAt(ProductoTabla.getSelectedRow(), 1));
+        producto.CodigoBarras ((int)CodigoBarrasInt);
         producto.Nombre((String)ProductoTabla.getValueAt(ProductoTabla.getSelectedRow(), 2));
         producto.Descripcion((String)ProductoTabla.getValueAt(ProductoTabla.getSelectedRow(), 3));
         producto.Proovedor((String)ProductoTabla.getValueAt(ProductoTabla.getSelectedRow(), 4));
-        producto.Piezas((int)ProductoTabla.getValueAt(ProductoTabla.getSelectedRow(), 5));
+        producto.Piezas((int)PiezasInt);
         producto.Estatus((String)ProductoTabla.getValueAt(ProductoTabla.getSelectedRow(), 6));
       
         
