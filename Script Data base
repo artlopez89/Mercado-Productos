@@ -1,0 +1,56 @@
+CREATE SCHEMA `Mercado` ;
+
+
+CREATE TABLE `Mercado`.`Productos` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `CodigoBarras` INT(11) NOT NULL,
+  `Nombre` VARCHAR(45) NOT NULL,
+  `Descripcion` VARCHAR(45) NOT NULL,
+  `Proovedor` VARCHAR(45) NOT NULL,
+  `Piezas` INT NOT NULL ,
+  `Estatus` VARCHAR(45) NOT NULL DEFAULT 'Disponible',
+  PRIMARY KEY (`ID`));
+
+
+  CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Actualizar_Producto`(in DbID int, in DbCodigoBarras int, in DbNombre varchar(45), in DbDescripcion varchar(45), in DbProovedor varchar(45), in DbPiezas int, in DbEstatus varchar(45))
+  BEGIN
+  update Productos set   ID=DbID, CodigoBarras=DbCodigoBarras, Nombre=DbNombre, Descripcion=DbDescripcion, Proovedor=DbProovedor, Piezas=DbPiezas, Estatus=DbEstatus
+  where  ID=DbID ;
+  END
+
+
+  CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Borrar_Producto`(in DbID int)
+BEGIN
+delete from Productos where  ID=DbID;
+END
+
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Buscar_Producto`(in buscar varchar(45))
+BEGIN
+	select * from Productos WHERE Nombre like concat('%',buscar,'%');
+END
+
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Ingresar_Producto`(in DbCodigoBarras int, in DbNombre varchar(45), in DbDescripcion varchar(45), in DbProovedor varchar(45), in DbPiezas int, in DbEstatus varchar(45))
+BEGIN
+declare tmp int;
+select count(CodigoBarras) into tmp From Productos
+ where    CodigoBarras=DbCodigoBarras and Nombre=DbNombre and Descripcion=DbDescripcion and Proovedor=DbProovedor and Piezas=DbPiezas and Estatus=DbEstatus;
+if tmp then
+	select "Producto registrado previamente" as mensaje;
+else 
+	insert into Productos (CodigoBarras, Nombre, Descripcion, Proovedor, Piezas, Estatus) 
+	value (DbCodigoBarras, DbNombre, DbDescripcion, DbProovedor, DbPiezas, DbEstatus);
+    select "Producto registrado" as mensaje;
+end if;
+END
+
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_Mostrar_Producto`()
+BEGIN
+	select * from Productos;
+END
+
